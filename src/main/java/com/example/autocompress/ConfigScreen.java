@@ -19,7 +19,9 @@ public class ConfigScreen extends Screen {
         CompressConfig cfg = CompressConfig.get();
         int centerX = this.width / 2;
 
-        addRenderableWidget(new StringWidget(centerX - 100, 12, 200, 9, this.title, this.font).alignCenter());
+        StringWidget titleWidget = new StringWidget(this.title, this.font);
+        titleWidget.setPosition(centerX - titleWidget.getWidth() / 2, 12);
+        addRenderableWidget(titleWidget);
 
         // Master toggle
         addRenderableWidget(Button.builder(masterLabel(cfg), btn -> {
@@ -58,6 +60,6 @@ public class ConfigScreen extends Screen {
     @Override
     public void onClose() {
         CompressConfig.save();
-        this.minecraft.setScreen(parent);
+        this.minecraft.gui.setScreen(parent);
     }
 }
