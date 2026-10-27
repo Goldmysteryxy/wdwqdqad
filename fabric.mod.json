@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "autocompress",
+  "version": "1.0.0",
+  "name": "Auto Compress",
+  "description": "Automatically crafts nuggets into ingots and ingots into blocks (and more) when you pick them up. Configurable via Mod Menu.",
+  "authors": ["You"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.example.autocompress.AutoCompress"],
+    "modmenu": ["com.example.autocompress.ModMenuIntegration"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
