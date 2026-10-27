@@ -62,18 +62,31 @@ public class AutoCompress implements ModInitializer {
                 toRemove -= take;
             }
 
-            // Give the outputs (drops at the player's feet if the inventory is full)
+            // Give the outputs. If the inventory is full, hand back the matching inputs instead.
             int maxStack = to.getDefaultMaxStackSize();
             while (crafts > 0) {
                 int n = Math.min(crafts, maxStack);
                 ItemStack out = new ItemStack(to, n);
                 inv.add(out);
-                if (!out.isEmpty()) player.drop(out, false);
+                if (!out.isEmpty()) {
+                    giveBack(inv, from, out.getCount() * rule.count);
+                }
                 crafts -= n;
             }
             changed = true;
         }
 
         if (changed) inv.setChanged();
+    }
+
+    private static void giveBack(Inventory inv, Item item, int amount) {
+        int max = item.getDefaultMaxStackSize();
+        while (amount > 0) {
+            int n = Math.min(amount, max);
+            ItemStack back = new ItemStack(item, n);
+            inv.add(back);
+            if (!back.isEmpty()) break; // truly no room; extremely unlikely since we just freed slots
+            amount -= n;
+        }
     }
 }
