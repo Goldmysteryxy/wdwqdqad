@@ -66,7 +66,9 @@ public class AutoCompress implements ModInitializer {
             int maxStack = to.getDefaultMaxStackSize();
             while (crafts > 0) {
                 int n = Math.min(crafts, maxStack);
-                inv.placeItemBackInInventory(new ItemStack(to, n));
+                ItemStack out = new ItemStack(to, n);
+                inv.add(out);
+                if (!out.isEmpty()) player.drop(out, false);
                 crafts -= n;
             }
             changed = true;
